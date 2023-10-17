@@ -1,0 +1,10 @@
+.breadcrumb-container {
+    height: 102px;
+    width: 100vw;   
+}
+::ng-deep .xng-breadcrumb-trail {
+    margin-bottom: 0 !important;
+}
+::ng-deep .xng-breadcrumb-item {
+    text-transform: capitalize;
+}

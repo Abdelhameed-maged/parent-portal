@@ -1,0 +1,59 @@
+<div class="sidbar-wrapper">
+  <div
+    class="align-content-between d-flex flex-row justify-content-between mb-2 w-100 p-2"
+  >
+    <span>User</span>
+    <span style="width: 120px">Actions</span>
+  </div>
+  <div
+    class="users-wrapper"
+    infiniteScroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="10"
+    [infiniteScrollDisabled]="infiniteScrollDisabled"
+    [scrollWindow]="false"
+    (scrolled)="onScroll()"
+    [ngClass]="{ 'w-75': active !== -1 }"
+  >
+    <div
+      *ngFor="let user of usersList"
+      class="user-container w-100 m-0 d-flex flex-row justify-content-between"
+      (click)="openUserDetails(user)"
+      [ngClass]="{ 'primary-bg': user.id === active }"
+    >
+      <div class="user-info">
+        <img [src]="user.avatar" />
+        <h2 [ngClass]="{ 'white-color': user.id === active }" class="body-font">
+          {{ user.first_name }} {{ user.last_name }}
+        </h2>
+      </div>
+      <div class="d-flex flex-row p-2" *ngIf="active === -1">
+        <p-button
+          class="p-button-outlined align-self-center p-button-outlined p-element mr-1"
+          type="outlined"
+          (click)="$event.stopPropagation(); editUser(user)"
+        >
+          <i class="pi pi-pencil"></i>
+        </p-button>
+        <p-button
+          class="p-button-outlined align-self-center p-button-outlined p-element"
+          type="outlined"
+          (click)="$event.stopPropagation(); deleteUser(user)"
+        >
+          <i class="pi pi-trash"></i>
+        </p-button>
+      </div>
+    </div>
+    <div
+      class="d-flex flex-row p-3"
+      *ngIf="infiniteScrollDisabled && !noMoreData"
+    >
+      <p-skeleton shape="circle" size="4rem" styleClass="p-mr-2"></p-skeleton>
+      <div style="flex: 1">
+        <p-skeleton width="100%" styleClass="mb-1"></p-skeleton>
+        <p-skeleton width="75%" styleClass="mt-1"></p-skeleton>
+      </div>
+    </div>
+  </div>
+  <app-parent-sidebar></app-parent-sidebar>
+</div>

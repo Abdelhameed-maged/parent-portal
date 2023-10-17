@@ -1,0 +1,49 @@
+{
+  "name": "parent-portal",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "generate-swagger": "npx @openapitools/openapi-generator-cli generate  --skip-validate-spec --global-property --enable-post-process-file=true  --additional-properties=withInterfaces=true --additional-properties=paramNaming=camelCase --additional-properties=ngVersion=14.0.3  -i ./swagger.yml -g typescript-angular -o src/app/api/"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular-eslint/schematics": "^1.0.0",
+    "@angular/animations": "^14.3.0",
+    "@angular/common": "^14.3.0",
+    "@angular/compiler": "^14.3.0",
+    "@angular/core": "^14.3.0",
+    "@angular/forms": "^14.3.0",
+    "@angular/platform-browser": "^14.3.0",
+    "@angular/platform-browser-dynamic": "^14.3.0",
+    "@angular/router": "^14.3.0",
+    "@openapitools/openapi-generator-cli": "^2.7.0",
+    "animate.css": "^4.1.1",
+    "bootstrap": "^4.6.0",
+    "jwt-decode": "^3.1.2",
+    "ngx-infinite-scroll": "^14.0.1",
+    "primeicons": "^6.0.1",
+    "primeng": "^14.2.3",
+    "rxjs": "~7.5.0",
+    "store2": "^2.14.2",
+    "tslib": "^2.3.0",
+    "xng-breadcrumb": "8.0.1",
+    "zone.js": "~0.11.4"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^14.2.13",
+    "@angular/cli": "~14.2.13",
+    "@angular/compiler-cli": "^14.3.0",
+    "@types/jasmine": "~4.0.0",
+    "jasmine-core": "~4.3.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.1.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.0.0",
+    "typescript": "~4.7.2"
+  }
+}
