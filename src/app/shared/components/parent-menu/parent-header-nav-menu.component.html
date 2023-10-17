@@ -1,0 +1,30 @@
+<p-menubar styleClass="bg-white ml-3 mr-3">
+  <ng-template pTemplate="start">
+    <img src="assets/media/Logo.png" />
+  </ng-template>
+  <ng-template pTemplate="end">
+    <ul class="nav justify-content-end">
+      <li class="nav-item">
+        <a class="nav-link active" href="#">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Contact</a>
+      </li>
+      <li class="nav-item" *ngIf="isLoggedIn(); else publicMenu">
+        <button pButton type="button" class="p-button-raised p-button-rounded">
+          Enquire
+        </button>
+      </li>
+    </ul>
+    <ng-template #publicMenu>
+      <li class="nav-item">
+        <button pButton type="button" class="p-button-raised p-button-rounded">
+          Login
+        </button>
+      </li>
+    </ng-template>
+  </ng-template>
+</p-menubar>

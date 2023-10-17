@@ -1,0 +1,30 @@
+.users-wrapper {
+  height: calc(100vh - 250px);
+  overflow-y: hidden;
+  &:hover {
+  overflow-y: auto;
+
+  }
+  .user-container {
+    height: 110px;
+    width: 100%;
+    &:hover {
+      background-color: rgba(142, 68, 173, 0.05);
+    }
+    .user-info {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      padding-left: 12px;
+      img {
+        width: 55px;
+        height: 55px;
+        border-radius: 100%;
+      }
+    }
+  }
+}
+.sidbar-wrapper {
+    position: relative;
+}

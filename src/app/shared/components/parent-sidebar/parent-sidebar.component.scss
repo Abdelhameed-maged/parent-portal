@@ -1,0 +1,22 @@
+.parent-sidbar {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.avatar {
+  height: 127px;
+  width: 127px;
+  border-radius: 100%;
+}
+
+.clear-button {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  font-size: 1.5rem;
+  float: right;
+  &:hover {
+    cursor: pointer;
+    opacity: .8;
+  }
+}

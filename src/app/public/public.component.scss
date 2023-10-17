@@ -1,0 +1,8 @@
+.parent-public-wrapper {
+    max-width: 70vw;
+    height: calc(100vh - 120px);
+    display: block;
+    @media only screen and (min-width: 576px) {
+        max-width: unset;
+    } 
+}
