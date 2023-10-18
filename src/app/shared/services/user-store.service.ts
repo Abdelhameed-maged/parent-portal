@@ -6,6 +6,8 @@ import { User } from 'src/app/api';
 })
 export class UserStoreService {
   readonly userData = new BehaviorSubject<User>({});
+  readonly draftUserData = new BehaviorSubject<User>({});
+
   constructor() { }
 
   setUserData(user: User) {
@@ -16,7 +18,19 @@ export class UserStoreService {
     return this.userData.asObservable();
   }
 
+  clearDraftUserData() {
+    this.draftUserData.next({})
+  }
+
+  setDraftUserData(user: User) {
+    this.draftUserData.next(user);
+  }
+
+  getDraftUserData(): Observable<User> {
+    return this.draftUserData.asObservable();
+  }
+
   clearUserData() {
-    this.userData.next({})
+    this.draftUserData.next({})
   }
 }
