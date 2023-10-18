@@ -6,11 +6,11 @@
     <img class="avatar mt-4"  [src]="userData.avatar"/>
     <h2 class="p-2">{{userData?.first_name  | titlecase}} {{userData?.last_name | titlecase}}</h2>
     <div class="d-flex flex-row justify-content-center w-100">
-        <button pButton class="p-button-rounded align-self-center w-40 p-element mr-1 white-color" type="rounded">
+        <button pButton class="p-button-rounded align-self-center w-40 p-element mr-1 white-color" type="rounded" (click)="edit()">
             <i class="pi pi-pencil"></i>
             <span class="white-color pl-1">Edit</span>
           </button>
-          <button pButton class="p-button-rounded align-self-center w-40 text-center p-element white-color" type="rounded">
+          <button pButton class="p-button-rounded align-self-center w-40 text-center p-element white-color" type="rounded" (click)="delete()">
             <i class="pi pi-trash"></i>
             <span class="white-color pl-1">Delete</span>
           </button>

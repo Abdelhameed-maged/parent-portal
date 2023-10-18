@@ -8,6 +8,9 @@ import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { InfiniteScrollModule } from "ngx-infinite-scroll";
 import { SkeletonModule } from 'primeng/skeleton';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,10 @@ import { SkeletonModule } from 'primeng/skeleton';
     SharedModule,
     ReactiveFormsModule,
     InfiniteScrollModule,
-    SkeletonModule
-  ]
+    SkeletonModule,
+    ConfirmDialogModule,
+    DialogModule
+  ],
+  providers: [ConfirmationService]
 })
 export class ProtectedModule { }

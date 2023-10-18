@@ -8,7 +8,6 @@ import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { ParentBreadcrumbComponent } from './components/parent-breadcrumb/parent-breadcrumb.component';
 import { ParentSidebarComponent } from './components/parent-sidebar/parent-sidebar.component';
-import { ParentConfirmationModalComponent } from './components/parent-confirmation-modal/parent-confirmation-modal.component';
 import { BreadcrumbModule } from 'xng-breadcrumb';
 import { RouterModule } from '@angular/router';
 import { SidebarModule } from 'primeng/sidebar';
@@ -19,7 +18,6 @@ import { UserStoreService } from './services/user-store.service';
     ParentHeaderNavMenuComponent,
     ParentBreadcrumbComponent,
     ParentSidebarComponent,
-    ParentConfirmationModalComponent
   ],
   imports: [
     CommonModule,
@@ -39,7 +37,6 @@ import { UserStoreService } from './services/user-store.service';
     ParentHeaderNavMenuComponent,
     ParentBreadcrumbComponent,
     ParentSidebarComponent,
-    ParentConfirmationModalComponent,
     ToastModule,
     SidebarModule,
     ButtonModule

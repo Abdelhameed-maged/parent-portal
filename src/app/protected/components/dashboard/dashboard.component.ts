@@ -5,6 +5,8 @@ import { User } from 'src/app/api';
 import { MessageService } from 'primeng/api';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserStoreService } from 'src/app/shared/services/user-store.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,12 +20,19 @@ export class DashboardComponent implements OnInit, OnDestroy {
   infiniteScrollDisabled: boolean = true;
   noMoreData: boolean;
   active: number = -1;
+  showModal: boolean = false;
+  draftUser: User = {};
+  editForm!: FormGroup;
+
   constructor(
     private title: Title,
     private userService: UsersService,
     private messageService: MessageService,
-    private userDataStoreService: UserStoreService
-      ) { }
+    private userDataStoreService: UserStoreService,
+    private confirmationService: ConfirmationService,
+    private formBuilder: FormBuilder,
+
+  ) { }
 
   ngOnInit(): void {
     this.title.setTitle('Users List');
@@ -34,8 +43,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   listUsers(page: number, pageLimit: number) {
-   const getUser = this.userService.listUsers(page, pageLimit).subscribe({
-      next: (res) =>  {
+    const getUser = this.userService.listUsers(page, pageLimit).subscribe({
+      next: (res) => {
         if (!res.data?.length) {
           this.noMoreData = true;
           this.infiniteScrollDisabled = true;
@@ -48,7 +57,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         console.log(error);
         this.messageService.add({ severity: 'error', summary: 'Invalid', detail: error.error.error })
         getUser?.unsubscribe?.();
-      } 
+      }
     });
   }
 
@@ -63,15 +72,44 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.userDataStoreService.setUserData(user);
   }
 
-  editUser(user: User) {
-    
+  deleteUser(user: User) {
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to perform this action?',
+      accept: () => {
+        this.userService.deleteUser(user.id!).subscribe({
+          next: () => {
+            const index = this.usersList.findIndex(s => s.id === user.id);
+            this.usersList.splice(index, 1);
+            this.messageService.add({ severity: 'success', summary: 'User Detelted', detail: 'User Deleted' })
+          },
+          error: () => this.messageService.add({ severity: 'error', summary: 'An error occured', detail: 'An error occured' })
+        })
+      }
+    });
+
   }
 
-  deleteUser(user: User) {
-    
+  openEditUser(user: User) {
+    this.draftUser = user;
+    this.editForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      jobTitle: ['', Validators.required]
+    });
+    this.showModal = true;
   }
 
   ngOnDestroy() {
     this.title.setTitle('')
+  }
+
+  onSubmit() {
+     if (this.editForm.invalid) {
+      this.editForm.markAllAsTouched();
+      this.editForm.markAsDirty();
+      return;
+     }
+     this.userService.updateUser({  ...this.draftUser, ...this.editForm.value}).subscribe({next: (res) => console.log(res),
+      error: () => this.messageService.add({ severity: 'error', summary: 'An error occured', detail: 'An error occured' })
+    })
   }
 }
