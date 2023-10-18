@@ -31,7 +31,7 @@
         <p-button
           class="p-button-outlined align-self-center p-button-outlined p-element mr-1"
           type="outlined"
-          (click)="$event.stopPropagation(); editUser(user)"
+          (click)="$event.stopPropagation(); openEditUser(user)"
         >
           <i class="pi pi-pencil"></i>
         </p-button>
@@ -55,5 +55,86 @@
       </div>
     </div>
   </div>
-  <app-parent-sidebar></app-parent-sidebar>
+  <app-parent-sidebar
+    (deletUser)="deleteUser($event)"
+    (editUser)="openEditUser($event)"
+  ></app-parent-sidebar>
 </div>
+<p-confirmDialog
+  header="Confirmation"
+  icon="pi pi-exclamation-triangle"
+></p-confirmDialog>
+<p-dialog [(visible)]="showModal" [modal]="true" [style]="{ width: '363px' }">
+  <ng-template pTemplate="header">
+    <img class="avatar" [src]="draftUser?.avatar" />
+  </ng-template>
+  <div class="w-100" *ngIf="editForm">
+    <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          aria-describedby="nameHelp"
+          placeholder="Enter name"
+          formControlName="name"
+        />
+        <div
+        *ngIf="
+          editForm.controls['name'].invalid &&
+          (editForm.controls['name'].dirty ||
+            editForm.controls['name'].touched)
+        "
+        class="alert p-0 m-0"
+      >
+        <small *ngIf="editForm.controls['name'].errors?.['required']">
+          Name is required.
+        </small>
+      </div>
+      </div>
+      <div class="form-group">
+        <label for="jobTitle">Job Title</label>
+        <input
+          type="text"
+          class="form-control"
+          id="jobTitle"
+          placeholder="Job Title"
+          formControlName="jobTitle"
+        />
+        <div
+          *ngIf="
+            editForm.controls['jobTitle'].invalid &&
+            (editForm.controls['jobTitle'].dirty ||
+              editForm.controls['jobTitle'].touched)
+          "
+          class="alert p-0 m-0"
+        >
+          <small *ngIf="editForm.controls['jobTitle'].errors?.['required']">
+            Job title is required.
+          </small>
+        </div>
+      </div>
+    </form>
+  </div>
+  <ng-template pTemplate="footer">
+    <div class="d-flex flex-row justify-content-center w-100">
+      <button
+        pButton
+        class="p-button-rounded align-self-center w-40 p-element mr-1 white-color"
+        type="rounded"
+        (click)="showModal = false"
+      >
+        <span class="white-color pl-1">Cancel</span>
+      </button>
+      <button
+        pButton
+        class="p-button-rounded align-self-center w-40 text-center p-element white-color"
+        type="rounded"
+        (click)="onSubmit()"
+      >
+        <span class="white-color pl-1">Save</span>
+      </button>
+    </div>
+  </ng-template>
+</p-dialog>

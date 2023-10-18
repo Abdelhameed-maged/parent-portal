@@ -43,6 +43,7 @@ import { Configuration }                                     from '../configurat
 import {
     DefaultServiceInterface
 } from './default.serviceInterface';
+import { User } from '../model/user';
 
 
 
@@ -654,10 +655,10 @@ export class DefaultService implements DefaultServiceInterface {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public usersIdDelete(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any>;
-    public usersIdDelete(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpResponse<any>>;
-    public usersIdDelete(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpEvent<any>>;
-    public usersIdDelete(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any> {
+    public usersIdDelete(id: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any>;
+    public usersIdDelete(id: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpResponse<any>>;
+    public usersIdDelete(id: number,observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<HttpEvent<any>>;
+    public usersIdDelete(id: number,observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext}): Observable<any> {
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -689,7 +690,7 @@ export class DefaultService implements DefaultServiceInterface {
             }
         }
 
-        let localVarPath = `/users/`;
+        let localVarPath = `/users/` + id;
         return this.httpClient.request<any>('delete', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -762,11 +763,7 @@ export class DefaultService implements DefaultServiceInterface {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public usersIdPatch(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<UsersIdPut200Response>;
-    public usersIdPatch(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<UsersIdPut200Response>>;
-    public usersIdPatch(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<UsersIdPut200Response>>;
-    public usersIdPatch(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
-
+    public usersIdPatch( user: User, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<UsersIdPut200Response> { 
         let localVarHeaders = this.defaultHeaders;
 
         let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
@@ -798,7 +795,7 @@ export class DefaultService implements DefaultServiceInterface {
             }
         }
 
-        let localVarPath = `/users/`;
+        let localVarPath = `/users/` + user.id;
         return this.httpClient.request<UsersIdPut200Response>('patch', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -806,7 +803,8 @@ export class DefaultService implements DefaultServiceInterface {
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,
                 observe: observe,
-                reportProgress: reportProgress
+                reportProgress: reportProgress,
+                body: user
             }
         );
     }

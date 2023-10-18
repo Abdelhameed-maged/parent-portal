@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, EventEmitter, Output } from '@angular/core';
 import { UserStoreService } from '../../services/user-store.service';
 import { User } from 'src/app/api';
-import {Subscription} from 'rxjs'
+import { Subscription } from 'rxjs'
 @Component({
   selector: 'app-parent-sidebar',
   templateUrl: './parent-sidebar.component.html',
@@ -11,15 +11,27 @@ export class ParentSidebarComponent implements OnInit, OnDestroy {
   display: boolean
   userData: User;
   userDatasubscription: Subscription;
+  @Output() deletUser = new EventEmitter<User>();
+  @Output() editUser = new EventEmitter<User>();
+
   constructor(private userStoreService: UserStoreService) { }
 
   ngOnInit(): void {
-   this.userDatasubscription = this.userStoreService.getUserData().subscribe({
+    this.userDatasubscription = this.userStoreService.getUserData().subscribe({
       next: (user) => {
         this.userData = user;
         this.display = Boolean(user?.email);
       }
     })
+  }
+
+  delete() {
+    this.deletUser.emit(this.userData);
+    this.clear();
+  }
+
+  edit() {
+    this.editUser.emit(this.userData);
   }
 
   clear() {

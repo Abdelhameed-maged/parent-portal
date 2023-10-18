@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DefaultService, UsersGet200Response } from 'src/app/api';
+import { DefaultService, User, UsersGet200Response } from 'src/app/api';
 import {Observable} from 'rxjs'
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,11 @@ export class UsersService {
     return this.defaultService.usersGet(page, pageLimit);
   }
 
-  updateUser() {
-    return this.defaultService.usersIdPatch()
+  updateUser(user: User) {
+    return this.defaultService.usersIdPatch(user)
+  }
+
+  deleteUser(id: number) {
+    return this.defaultService.usersIdDelete(id);
   }
 }
